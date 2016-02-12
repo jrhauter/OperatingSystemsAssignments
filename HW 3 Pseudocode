@@ -16,3 +16,22 @@ kcheckc
 
 //return 1 if character is available on serial port
 
+for kgetc()
+Pseudocode
+//look at the unget buffer for a character
+
+volatile struct pl011_uart_csreg *regptr;
+
+/* Pointer to the UART control and status register */
+regptr = (struct pl0111_uart_csreg *)0x20201000;
+
+char *flagReg = regptr + (regptr->fr);
+
+while ((regptr->PL011_FR_TXFE) != 1)
+{
+  
+}
+
+*flagReg = c;
+
+return c;
