@@ -12,4 +12,6 @@ while ((regptr->PL011_FR_TXFE) != 1)
   
 }
 
-flagReg = c;
+*flagReg = c;
+
+return SYSERR; // Need to see if we return c instead of this
