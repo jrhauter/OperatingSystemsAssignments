@@ -1,0 +1,18 @@
+for kputc
+Pseudocode
+
+//look at uart_csreg *pucsr = (struct uart_csreg *))xB8000300 //default location for UART I/O
+
+unsigned char lookAddress = pucsr + pucsr.UART_LSR_TEMT;
+
+while(lookAddress == 0)
+{
+  //do nothing, wait for TEMT to be 1 (both registers are empty)
+}
+
+//put char into serial port
+
+kcheckc
+
+//return 1 if character is available on serial port
+
