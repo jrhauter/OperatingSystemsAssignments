@@ -1,0 +1,15 @@
+kputc(uchar c)
+
+volatile struct pl011_uart_csreg *regptr;
+
+/* Pointer to the UART control and status register */
+regptr = (struct pl0111_uart_csreg *)0x20201000;
+
+char *flagReg = regptr + (regptr->fr);
+
+while ((regptr->PL011_FR_TXFE) != 1)
+{
+  
+}
+
+flagReg = c;
