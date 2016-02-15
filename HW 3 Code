@@ -13,3 +13,29 @@ while (regptr->fr & PL011_FR_TXFF) //hold here until register is open
 regptr->dr = c;
 
 return c;
+
+
+
+getc (void)
+
+volatile struct pl011_uart_csreg *regptr;
+uchar c = '\0';
+
+regptr = (struct pl011_uart_csreg *)0x20201000;
+
+int i;
+for(int = 0; i<UNGETMAX; i++)
+{
+  if(ungetArray[i] != '\0)
+  {
+    c = ungetArray[i];
+    break;
+  }
+}
+
+if(c == '\0')
+{
+  c=regptr->dr;
+}
+
+return c;
