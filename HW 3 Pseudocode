@@ -12,7 +12,83 @@ while(lookAddress == 0)
 
 //put char into serial port
 
-kcheckc
+for kcheckc
 
-//return 1 if character is available on serial port
+WHAT WE NEED TO DO FOR KCHECKC
 
+/**
+ * kcheckc - check to see if a character is available.
+ * @return true if a character is available, false otherwise.
+ */
+syscall kcheckc(void)
+{
+    volatile struct pl011_uart_csreg *regptr;
+    regptr = (struct pl011_uart_csreg *)0x20201000;
+
+    // TODO: Check the unget buffer and the UART for characters.
+
+    return SYSERR;
+}
+
+
+
+for kgetc - similar to getch() - read a single-byte character from the terminal associated with the current or specified window.
+Upon successful completion getch returns the single-byte character.
+
+EXAMPLE IMPLEMENTATION OF GETCH()
+int getch(void) /* get a (possibly pushed back) character */
+    {
+        if (bufp > 0)
+        {
+            return buf[--bufp];
+        }
+        else
+        {
+            return getchar();
+        }
+    }
+
+WHAT WE NEED TO DO FOR KGETC()
+{
+    volatile struct pl011_uart_csreg *regptr;
+    uchar c;
+
+    /* Pointer to the UART control and status registers.  */
+    regptr = (struct pl011_uart_csreg *)0x20201000;
+
+    // TODO: First, check the unget buffer for a character.
+    
+    
+    //       Otherwise, check UART flags register, and
+    //       once the receiver is not empty, get character c.
+
+    return SYSERR;
+    
+}    
+    
+for kungetc - similar to ungetch() - The ungetch() function pushes the single-byte character ch onto the head of the input queue.
+    
+EXAMPLE IMPLEMENTATION OF UNGETCH()
+    void ungetch(int c) /* push character back on input */
+    {
+        if (bufp >= BUFSIZE)
+        {
+            printf("ungetch: too many characters\n");
+        }
+        else
+        {
+            buf[bufp++] = c;
+        }
+        
+WHAT WE NEED TO DO FOR KUNGETC()
+   /**
+ * kungetc - put a serial character "back" into a local buffer.
+ * @param c character to unget.
+ * @return c on success, SYSERR on failure.
+ */
+syscall kungetc(unsigned char c)
+{
+    // TODO: Check for room in unget buffer, put the character in or discard.
+
+    return SYSERR;
+}
