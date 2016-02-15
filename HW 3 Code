@@ -39,3 +39,37 @@ if(c == '\0')
 }
 
 return c;
+
+
+
+for kungetc - similar to ungetch() - The ungetch() function pushes the single-byte character ch onto the head of the input queue.
+    
+EXAMPLE IMPLEMENTATION OF UNGETCH()
+    void ungetch(int c) /* push character back on input */
+    {
+        if (bufp >= BUFSIZE)
+        {
+            printf("ungetch: too many characters\n");
+        }
+        else
+        {
+            buf[bufp++] = c;
+        }
+        
+WHAT WE NEED TO DO FOR KUNGETC()
+   /**
+ * kungetc - put a serial character "back" into a local buffer.
+ * @param c character to unget.
+ * @return c on success, SYSERR on failure.
+ */
+syscall kungetc(unsigned char c)
+{
+    // TODO: Check for room in unget buffer, put the character in or discard.
+
+    return SYSERR;
+}
+
+
+
+
+
